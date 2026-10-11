@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Flowersechs Library</title>
+<meta name="description" content="Biblioteca de livros com visual da Steam.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Hanken+Grotesk:wght@400;500;600;700;800&family=Oswald:wght@500;600&display=swap">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<div class="app" id="app">
+  <header class="top">
+    <div class="brand">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 5.5A2.5 2.5 0 0 1 6.5 3H20v16H6.5A2.5 2.5 0 0 0 4 21.5z"/><path d="M4 5.5v16"/><path d="M9 8h7"/></svg>
+      <b>Flowersechs</b>
+    </div>
+    <nav class="tabs" aria-label="Seções">
+      <button class="tab" type="button" data-act="tab" data-v="store" id="tab-store">Loja</button>
+      <button class="tab" type="button" data-act="tab" data-v="lib" id="tab-lib">Biblioteca</button>
+    </nav>
+    <div class="grow"></div>
+    <div class="sync" id="sync" data-s="ok"><i></i><span id="synctxt">Salvo neste navegador</span></div>
+    <button class="btn green addtop" data-act="addopen" type="button">+ Adicionar</button>
+  </header>
+
+  <div class="body">
+    <aside class="side">
+      <div class="search">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+        <input id="q" type="search" placeholder="Buscar título ou autor" aria-label="Buscar na biblioteca" autocomplete="off">
+      </div>
+      <div class="sidescroll">
+        <div class="lbl">Coleções</div>
+        <nav class="cols" id="cols" aria-label="Coleções"></nav>
+        <div class="lbl" id="listlbl">Livros</div>
+        <div class="list" id="list"></div>
+      </div>
+      <div class="sidefoot"><button class="btn flat" data-act="addopen" type="button">+ Adicionar um livro</button></div>
+    </aside>
+    <main class="main" id="main"></main>
+  </div>
+</div>
+
+<div class="ov" id="ov" hidden>
+  <div class="modal" role="dialog" aria-modal="true" aria-labelledby="mt">
+    <div class="mh"><h2 id="mt">Adicionar um livro à biblioteca</h2><button class="iconbtn" data-act="addclose" type="button" aria-label="Fechar">&times;</button></div>
+    <div class="mb">
+      <div class="pv" id="pv"></div>
+      <div class="form" id="form">
+        <div class="field full"><label for="f-title">Título</label><input id="f-title" maxlength="120" autocomplete="off"></div>
+        <div class="field"><label for="f-author">Autor</label><input id="f-author" maxlength="80" autocomplete="off"></div>
+        <div class="field"><label for="f-genre">Gênero</label>
+          <select id="f-genre"><option>Romance</option><option>Clássico</option><option>Ficção científica</option><option>Fantasia</option><option>Distopia</option><option>Mistério</option><option>Terror</option><option>Biografia</option><option>Não ficção</option><option>Poesia</option><option>Outro</option></select></div>
+        <div class="field"><label for="f-pages">Páginas</label><input id="f-pages" type="number" min="1" max="5000" value="300"></div>
+        <div class="field"><label for="f-status">Coleção</label>
+          <select id="f-status"><option value="want">Quero ler</option><option value="reading">Lendo</option><option value="done">Lido</option></select></div>
+        <div class="field"><label for="f-font">Letra da capa</label>
+          <select id="f-font"><option value="0">Serifada</option><option value="1">Condensada</option><option value="2">Geométrica</option></select></div>
+        <div class="field"><label for="f-pat">Estampa</label>
+          <select id="f-pat"><option value="0">Círculo</option><option value="1">Listras</option><option value="2">Faixa</option><option value="3">Pontos</option></select></div>
+        <div class="field full"><label>Cor da capa</label><div class="sw" id="sw"></div></div>
+        <div class="field full"><label for="f-desc">Sobre o livro (opcional)</label><textarea id="f-desc" rows="3" maxlength="600" class="note" style="min-height:70px"></textarea></div>
+      </div>
+    </div>
+    <div class="mf"><span class="err" id="err" role="alert"></span><button class="btn flat" data-act="addclose" type="button">Cancelar</button><button class="btn green" data-act="addsave" type="button">Adicionar à biblioteca</button></div>
+  </div>
+</div>
+
+<script src="js/app.js"></script>
+</body>
+</html>
