@@ -1,4 +1,3 @@
-/* Layout: barra superior fixa, sidebar de coleções + lista de livros, painel principal com início (estante + grade) ou detalhe do livro, como a biblioteca da Steam. */
 :root{
   --bg:#1b2838; --bg2:#16202d; --bar:#171a21; --card:#223247; --line:#2a475e;
   --fg:#c7d5e0; --fg2:#8f98a0; --hi:#ffffff; --accent:#66c0f4; --accent-ink:#0e1a26;
@@ -9,6 +8,7 @@
   --cond:"Oswald","Arial Narrow",Impact,sans-serif;
   color-scheme:dark;
 }
+
 @media (prefers-color-scheme: light){
   :root:not([data-theme="dark"]){
     --bg:#e6edf3; --bg2:#d5dfe8; --bar:#c9d5df; --card:#f4f7fa; --line:#a9bccb;
@@ -17,12 +17,14 @@
     color-scheme:light;
   }
 }
+
 :root[data-theme="light"]{
   --bg:#e6edf3; --bg2:#d5dfe8; --bar:#c9d5df; --card:#f4f7fa; --line:#a9bccb;
   --fg:#26384a; --fg2:#566b7d; --hi:#0d1b29; --accent:#16679d; --accent-ink:#ffffff;
   --track:#bdccd8; --warn:#9a6208; --ok:#3f7d0c; --danger:#b3322e; --field:#f4f7fa;
   color-scheme:light;
 }
+
 *{box-sizing:border-box}
 html,body{height:100%}
 body{margin:0;background:var(--bg);color:var(--fg);font-family:var(--ui);font-size:14px;line-height:1.45;padding-inline:0}
