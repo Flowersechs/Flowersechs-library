@@ -18,17 +18,17 @@
     
       starS:'<svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="m12 2.8 2.9 6 6.6.9-4.8 4.6 1.2 6.5L12 17.6 6.1 20.8l1.2-6.5L2.5 9.7l6.6-.9z"/></svg>',
     
-      up:'<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 10v10H3V10zM7 10l4-7a2 2 0 0 1 2 2v4h6.5a2 2 0 0 1 2 2.3l-1.4 8a2 2 0 0 1-2 1.7H7"/></svg>',
+      up:'<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 10v10H3V1.5C3 1 3.4.5 4 .5h6.5a.5.5 0 0 1 .4.2L17.3 9a1 1 0 0 1-.1 1.4l-.1.1-4 3.3a1 1 0 0 1-1.2-1.6L14 10H7z"/><path d="M14 4h8"/></svg>',
     
-      down:'<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M17 14V4h4v10zM17 14l-4 7a2 2 0 0 1-2-2v-4H4.5a2 2 0 0 1-2-2.3l1.4-8A2 2 0 0 1 5.900 3H17"/></svg>',
-   
+      down:'<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M17 14V4h4v17H3V4h4v10"/><path d="M12 4v10"/><path d="m8 18 4 4 4-4"/></svg>',
+    
       back:'<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m15 5-7 7 7 7"/></svg>',
     
       heart:'<svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 21s-8-5.200-8-11a4.500 4.500 0 0 1 8-2.800A4.500 4.500 0 0 1 20 10c0 5.800-8 11-8 11z"/></svg>',
     
       next:'<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 5 7 7-7 7"/></svg>',
     
-      trophy:'<svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 4h8v6a4 4 0 0 1-8 0zM8 6H4a3 3 0 0 0 4 4M16 6h4a3 3 0 0 1-4 4M12 14v4M8.500 21h7"/></svg>'
+      trophy:'<svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 4h8v3a4 4 0 0 1-8 0V4z"/><path d="M8 4H5a2 2 0 0 0 2 2"/><path d="M16 4h3a2 2 0 0 1-2 2"/><path d="M12 11v6"/><path d="M9 17h6"/><path d="M10 21h4"/></svg>'
   };
 
 
@@ -43,17 +43,17 @@
   var d=Math.floor((Date.now()-ts)/DAY);
   if(d<=0)return 'Hoje'; if(d===1)return 'Ontem'; if(d<30)return 'Há '+d+' dias';
   var m=Math.floor(d/30); return m===1?'Há 1 mês':'Há '+m+' meses';
-}
+ }
 
   function dur(min){
   min=Math.round(min); var h=Math.floor(min/60), m=min%60;
   return h?(h+' h'+(m?' '+m+' min':'')):(m+' min');
-}
-  
+  }
+    
     function num(n){return new Intl.NumberFormat('pt-BR').format(n)}
-  
+    
     function pct(b){return b.pages?Math.min(100,Math.round(b.read/b.pages*100)):0}
-  
+    
     function find(id){for(var i=0;i<books.length;i++)if(books[i].id===id)return books[i];return null}
 
   function seed(){
@@ -62,42 +62,28 @@
   
         function S(id,title,author,year,genre,pages,read,status,hue,pat,font,desc,x){
         var b={id:id,title:title,author:author,year:year,genre:genre,pages:pages,read:read,status:status,hue:hue,pattern:pat,font:font,desc:desc,
-          minutes:Math.round(read*1.8),fav:false,rec:null,note:'',last:null,added:n-60*DAY,example:true};
+          minutes:Math.round(read*1.8),fav:false,rec:null,note:'',last:null,added:n-60*DAY,example:true,downloads:{pdf:'',epub:''}};
         for(var k in (x||{}))b[k]=x[k];
         return b;
       }
     
       return [
-        S('s1','Grande Sertão: Veredas','João Guimarães Rosa',1956,'Romance',590,212,'reading',38,1,0,'Um ex-jagunço conta sua vida a um visitante, misturando amor, guerra e dúvida sobre o bem e o mal, em uma linguagem que reinventa o português do sertão.',{last:n-1*DAY,added:n-40*DAY,note:'Ler em voz alta ajuda muito nos trechos mais longos.'}),
-        
-        S('s2','Duna','Frank Herbert',1965,'Ficção científica',680,340,'reading',28,2,1,'Em um planeta desértico onde se produz a substância mais valiosa do universo, uma família nobre é lançada em uma disputa por poder, religião e sobrevivência.',{last:n-2*DAY,added:n-30*DAY,fav:true}),
-        
-        S('s3','Cem Anos de Solidão','Gabriel García Márquez',1967,'Realismo mágico',448,96,'reading',165,0,0,'A saga da família Buendía na cidade de Macondo, onde o extraordinário acontece com a naturalidade do dia a dia, ao longo de várias gerações.',{last:n-6*DAY,added:n-20*DAY}),
-       
-        S('s4','Dom Casmurro','Machado de Assis',1899,'Clássico',256,256,'done',235,3,0,'Bentinho narra sua vida e tenta decidir se Capitu o traiu. O leitor termina sem certeza, e esse é o jogo do livro.',{last:n-45*DAY,added:n-90*DAY,rec:true,fav:true,minutes:430,note:'Reler o capítulo do olhar de ressaca.'}),
-       
-        S('s5','Memórias Póstumas de Brás Cubas','Machado de Assis',1881,'Clássico',240,240,'done',275,1,0,'Um defunto autor resolve contar a própria vida com ironia, digressões e muito pouca pena de si mesmo e dos outros.',{last:n-120*DAY,added:n-150*DAY,rec:true,minutes:390}),
-       
-        S('s6','1984','George Orwell',1949,'Distopia',416,416,'done',8,2,2,'Em um Estado que vigia tudo, um funcionário do governo começa a duvidar da versão oficial dos fatos e paga caro por isso.',{last:n-200*DAY,added:n-230*DAY,rec:true,minutes:700}),
-        
-        S('s7','O Hobbit','J. R. R. Tolkien',1937,'Fantasia',320,320,'done',95,0,0,'Bilbo Bolseiro, um hobbit caseiro, é convidado a acompanhar anões numa viagem para recuperar um tesouro guardado por um dragão.',{last:n-300*DAY,added:n-330*DAY,rec:true,minutes:520}),
-        
-        S('s8','Fahrenheit 451','Ray Bradbury',1953,'Distopia',200,200,'done',28,3,1,'Num futuro em que livros são proibidos e queimados, um bombeiro que acende fogueiras começa a se perguntar o que há dentro deles.',{last:n-180*DAY,added:n-210*DAY,rec:true,minutes:340}),
-        
-        S('s9','Capitães da Areia','Jorge Amado',1937,'Romance',280,280,'done',48,2,2,'Um grupo de meninos de rua em Salvador vive de pequenos roubos e de lealdade entre si, sob os olhos de uma cidade que prefere não ver.',{last:n-250*DAY,added:n-280*DAY,minutes:480}),
-        
-        S('s10','A Hora da Estrela','Clarice Lispector',1977,'Romance',88,0,'want',320,0,0,'A história de Macabéa, datilógrafa nordestina no Rio de Janeiro, contada por um narrador que se questiona sobre o direito de contá-la.',{added:n-15*DAY}),
-        
-        S('s11','Neuromancer','William Gibson',1984,'Ficção científica',320,0,'want',200,3,1,'Um hacker aposentado é recrutado para um último trabalho em um mundo de corporações, inteligências artificiais e redes de computadores.',{added:n-12*DAY}),
-        
-        S('s12','O Nome da Rosa','Umberto Eco',1980,'Mistério',592,0,'want',8,1,0,'Um frade franciscano investiga mortes misteriosas em uma abadia medieval cheia de segredos, debates teológicos e uma biblioteca labiríntica.',{added:n-10*DAY}),
-        
-        S('s13','Orgulho e Preconceito','Jane Austen',1813,'Clássico',424,0,'want',320,2,0,'Elizabeth Bennet e o orgulhoso Sr. Darcy precisam rever o que pensam um do outro em uma sociedade que mede casamentos como negócios.',{added:n-8*DAY}),
-        
-        S('s14','Sapiens','Yuval Noah Harari',2011,'Não ficção',464,120,'dropped',200,1,2,'Um panorama da história da espécie humana, da vida de caçadores-coletores até a era da ciência e da tecnologia.',{last:n-70*DAY,added:n-100*DAY,rec:false,minutes:230})
+        S('s1','Grande Sertão: Veredas','João Guimarães Rosa',1956,'Romance',590,212,'reading',38,1,0,'Um ex-jagunço conta sua vida a um visitante, misturando amor, guerra e dúvida sobre o bem e o mal.',{downloads:{pdf:'/files/grande-sertao-veredas.pdf',epub:'/files/grande-sertao-veredas.epub'}}),
+        S('s2','Duna','Frank Herbert',1965,'Ficção científica',680,340,'reading',28,2,1,'Em um planeta desértico onde se produz a substância mais valiosa do universo, uma família nobre é lançada ao centro de uma luta política e religiosa.',{downloads:{pdf:'/files/duna.pdf',epub:'/files/duna.epub'}}),
+        S('s3','Cem Anos de Solidão','Gabriel García Márquez',1967,'Realismo mágico',448,96,'reading',165,0,0,'A saga da família Buendía na cidade de Macondo, onde o extraordinário acontece como se fosse natural.',{downloads:{pdf:'',epub:''}}),
+        S('s4','Dom Casmurro','Machado de Assis',1899,'Clássico',256,256,'done',235,3,0,'Bentinho narra sua vida e tenta decidir se Capitu o traiu. O leitor termina sem certeza, e esse é o jogo do romance.',{downloads:{pdf:'/files/dom-casmurro.pdf',epub:'/files/dom-casmurro.epub'}}),
+        S('s5','Memórias Póstumas de Brás Cubas','Machado de Assis',1881,'Clássico',240,240,'done',275,1,0,'Um defunto autor resolve contar a própria vida com ironia, digressões e muito pouco pudor.',{downloads:{pdf:'',epub:''}}),
+        S('s6','1984','George Orwell',1949,'Distopia',416,416,'done',8,2,2,'Em um Estado que vigia tudo, um funcionário do governo começa a duvidar da versão oficial dos fatos e paga caro por isso.',{downloads:{pdf:'/files/1984.pdf',epub:'/files/1984.epub'}}),
+        S('s7','O Hobbit','J. R. R. Tolkien',1937,'Fantasia',320,320,'done',95,0,0,'Bilbo Bolseiro, um hobbit caseiro, é convidado a acompanhar anões numa viagem para recuperar um tesouro guardado por um dragão.',{downloads:{pdf:'',epub:''}}),
+        S('s8','Fahrenheit 451','Ray Bradbury',1953,'Distopia',200,200,'done',28,3,1,'Num futuro em que livros são proibidos e queimados, um bombeiro que acende fogueiras começa a se perguntar o que está fazendo.',{downloads:{pdf:'',epub:''}}),
+        S('s9','Capitães da Areia','Jorge Amado',1937,'Romance',280,280,'done',48,2,2,'Um grupo de meninos de rua em Salvador vive de pequenos roubos e de lealdade entre si, sob os olhos de uma cidade dura.',{downloads:{pdf:'',epub:''}}),
+        S('s10','A Hora da Estrela','Clarice Lispector',1977,'Romance',88,0,'want',320,0,0,'A história de Macabéa, datilógrafa nordestina no Rio de Janeiro, contada por um narrador que se questiona sobre sua própria voz.',{downloads:{pdf:'',epub:''}}),
+        S('s11','Neuromancer','William Gibson',1984,'Ficção científica',320,0,'want',200,3,1,'Um hacker aposentado é recrutado para um último trabalho em um mundo de corporações, inteligência artificial e neon.',{downloads:{pdf:'',epub:''}}),
+        S('s12','O Nome da Rosa','Umberto Eco',1980,'Mistério',592,0,'want',8,1,0,'Um frade franciscano investiga mortes misteriosas em uma abadia medieval cheia de segredos, debates teológicos e enigmas.',{downloads:{pdf:'',epub:''}}),
+        S('s13','Orgulho e Preconceito','Jane Austen',1813,'Clássico',424,0,'want',320,2,0,'Elizabeth Bennet e o orgulhoso Sr. Darcy precisam rever o que pensam um do outro em uma sociedade que valoriza status.',{downloads:{pdf:'',epub:''}}),
+        S('s14','Sapiens','Yuval Noah Harari',2011,'Não ficção',464,120,'dropped',200,1,2,'Um panorama da história da espécie humana, da vida de caçadores-coletores até a era da ciência e da tecnologia.',{downloads:{pdf:'',epub:''}})
       ];
 
-  
   }
 
 
@@ -171,7 +157,7 @@
         
       }).join('');
     }
-  
+    
     function renderList(){
       
         var list=visible();
@@ -180,7 +166,7 @@
         
           $('list').innerHTML=list.length?list.map(function(b){
         
-        return '<button class="li" type="button" data-act="open" data-v="'+esc(b.id)+'"'+(ui.sel===b.id?' aria-current="true"':'')+'>'+cover(b,true)+'<span>'+esc(b.title)+'</span>'+(b.status==='reading'?'<i class="dot" title="Lendo"></i>':'')+'</button>';
+        return '<button class="li" type="button" data-act="open" data-v="'+esc(b.id)+'"'+(ui.sel===b.id?' aria-current="true"':'')+'>'+cover(b,true)+'<span>'+esc(b.title)+'</span>'+(b.status==='reading'?'<span class="dot"></span>':'')+'</button>';
       
         }).join(''):'<div class="empty-side">Nenhum livro encontrado.</div>';
     }
@@ -199,7 +185,7 @@ function tile(b){
       
       (p>0?'<span class="bar"><i style="width:'+p+'%"></i></span>':'')+
       '</div><span class="tcap">'+esc(cap)+'</span></button>';
-}
+ }
 
   
   function renderHome(){
@@ -217,7 +203,7 @@ function tile(b){
         
         var html='<div class="pad">';
         
-          html+='<div class="summary"><div><b>'+books.length+'</b><span>Livros</span></div><div><b>'+done+'</b><span>Lidos</span></div><div><b>'+num(totalRead)+'</b><span>Páginas lidas</span></div><div><b>'+dur(totalMin)+'</b><span>Tempo de leitura</span></div></div>';
+          html+='<div class="summary"><div><b>'+books.length+'</b><span>Livros</span></div><div><b>'+done+'</b><span>Lidos</span></div><div><b>'+num(totalRead)+'</b><span>Páginas lidas</span></div><div><b>'+dur(totalMin)+'</b><span>Leitura</span></div></div>';
         
         if(ui.col==='all'&&!ui.q.trim()&&recent.length){
           
@@ -237,50 +223,69 @@ function tile(b){
             
             html+='</section></div>';
     $('main').innerHTML=html;
-}
+ }
 
 
   var ACH=[
-        
         ['start','Primeira página','Registre sua primeira página lida',function(b){return b.read>0}],
-            
-        ['q1','Um quarto do caminho','Chegue a 25% do livro',function(b){return pct(b)>=25}],
-            
-        ['half','Meio caminho','Chegue a 50% do livro',function(b){return pct(b)>=50}],
-            
-        ['late','Reta final','Chegue a 90% do livro',function(b){return pct(b)>=90}],
-            
-        ['end','Última página','Termine o livro',function(b){return b.status==='done'}],
-            
-        ['note','Anotador','Escreva uma nota sobre o livro',function(b){return (b.note||'').trim().length>0}],
-            
-        ['fav','Estante de honra','Marque como favorito',function(b){return !!b.fav}],
-            
-        ['rev','Veredito','Diga se recomenda o livro',function(b){return b.rec!==null}]
-  
+            ['q1','Um quarto do caminho','Chegue a 25% do livro',function(b){return pct(b)>=25}],
+            ['half','Meio caminho','Chegue a 50% do livro',function(b){return pct(b)>=50}],
+            ['late','Reta final','Chegue a 90% do livro',function(b){return pct(b)>=90}],
+            ['end','Última página','Termine o livro',function(b){return b.status==='done'}],
+            ['note','Anotador','Escreva uma nota sobre o livro',function(b){return (b.note||'').trim().length>0}],
+            ['fav','Estante de honra','Marque como favorito',function(b){return !!b.fav}],
+            ['rev','Veredito','Diga se recomenda o livro',function(b){return b.rec!==null}]
   ];
+
+
+  function renderDownloadTab(b){
+    var pdf = (b.downloads && b.downloads.pdf) ? b.downloads.pdf : '';
+    var epub = (b.downloads && b.downloads.epub) ? b.downloads.epub : '';
+    var hasPdf = !!pdf;
+    var hasEpub = !!epub;
+
+    var actions = '';
+    if(hasPdf) actions += '<a class="btn blue" href="'+esc(pdf)+'" download>Baixar PDF</a>';
+    if(hasEpub) actions += '<a class="btn flat" href="'+esc(epub)+'" download>Baixar EPUB</a>';
+    if(!actions) actions = '<p class="download-empty">Ainda não há arquivo PDF/EPUB para este livro.</p>';
+
+    return '<div class="download-box">'+
+      '<div class="download-tabs" role="tablist" aria-label="Arquivos do livro">'+
+      '<button class="download-tab" type="button" data-role="download-tab" data-target="dl-info" aria-current="true">Informações</button>'+
+      '<button class="download-tab" type="button" data-role="download-tab" data-target="dl-files" aria-current="false">Downloads</button>'+
+      '</div>'+
+      '<div class="download-panels">'+
+      '<div class="download-panel" id="dl-info">'+
+      '<p class="download-copy">Você pode usar esta aba para disponibilizar o arquivo do livro em PDF ou EPUB para download. Os links podem apontar para arquivos públicos no seu servidor ou em armazenamento externo.</p>'+
+      '</div>'+
+      '<div class="download-panel" id="dl-files" hidden>'+
+      '<div class="download-actions">'+actions+'</div>'+
+      '</div>'+
+      '</div>'+
+      '</div>';
+  }
 
   
   function renderDetail(b){
-  
+
     var p=pct(b);
-  
+
     var rate=b.read>0&&b.minutes>0?b.minutes/b.read:1.8;
-  
+
     var left=Math.max(0,b.pages-b.read);
-  
+
     var unlocked=ACH.filter(function(a){return a[3](b)}).length;
-  
+
     var label=b.status==='done'?'RELER':(b.read>0?'CONTINUAR':'COMEÇAR');
-  
+
     var h='<div style="--h:'+(+b.hue||200)+'">';
-  
+
     h+='<section class="hero">'+cover(b)+'<div class="info"><button class="back" type="button" data-act="home">'+ico.back+' Biblioteca</button>'+
     
       '<h1>'+esc(b.title)+'</h1><div class="by">'+esc(b.author)+(b.year?' · '+esc(b.year):'')+'</div>'+
     
       '<div class="tags"><span class="tag">'+esc(b.genre||'Outro')+'</span><span class="tag">'+num(b.pages)+' páginas</span>'+(b.example?'<span class="tag ex">Exemplo</span>':'')+'</div></div></section>';
-  
+
     h+='<div class="actions">'+
     
       '<button class="btn green big" type="button" data-act="read">'+ico.play+' '+label+'</button>'+
@@ -304,7 +309,7 @@ function tile(b){
       
       '<button class="btn blue" type="button" data-act="savesession">Registrar leitura</button><button class="btn flat" type="button" data-act="read">Fechar</button></div>';
   }
-  
+    
     h+='<div class="stats"><div class="stat prog"><span>Progresso</span><b>'+num(b.read)+' de '+num(b.pages)+' págs. · '+p+'%</b><div class="track"><i style="width:'+p+'%"></i></div></div>'+
     
       '<div class="stat"><span>Tempo de leitura</span><b>'+dur(b.minutes||0)+'</b></div>'+
@@ -312,22 +317,24 @@ function tile(b){
       '<div class="stat"><span>Restante</span><b>'+(left?'≈ '+dur(left*rate):'—')+'</b></div>'+
     
       '<div class="stat"><span>Última leitura</span><b>'+rel(b.last)+'</b></div></div>';
-  
+
+    h += renderDownloadTab(b);
+    
     h+='<div class="cols2"><div>'+
     
       '<div class="box"><h3>Sobre este livro</h3><p>'+(b.desc?esc(b.desc):'<span style="color:var(--fg2)">Sem descrição.</span>')+'</p></div>'+
     
       '<div class="box"><h3>Minhas notas</h3><textarea class="note" id="note" aria-label="Minhas notas" placeholder="Citações, ideias, o que você achou até aqui…">'+esc(b.note||'')+'</textarea></div>'+
     
-      '<div class="box delrow">'+(ui.confirmDel?'<span>Remover este livro da biblioteca?</span><button class="btn danger" type="button" data-act="deldo">Remover</button><button class="btn flat" type="button" data-act="delcancel">Cancelar</button>':'<button class="btn flat" type="button" data-act="askdel">Remover da biblioteca</button>')+'</div>'+
+      '<div class="box delrow">'+(ui.confirmDel?'<span>Remover este livro da biblioteca?</span><button class="btn danger" type="button" data-act="deldo">Remover</button><button class="btn flat" type="button" data-act="delcancel">Cancelar</button>':'<button class="btn danger" type="button" data-act="askdel">Remover da biblioteca</button>')+'</div>'+
     
-      '</div><div><div class="box"><h3>Conquistas</h3><div class="achsum"><span>'+unlocked+' de '+ACH.length+' desbloqueadas</span><span>'+Math.round(unlocked/ACH.length*100)+'%</span></div><div class="track" style="margin:0 0 10px"><i style="width:'+Math.round(unlocked/ACH.length*100)+'%"></i></div><div class="ach">'+
+      '</div><div><div class="box"><h3>Conquistas</h3><div class="achsum"><span>'+unlocked+' de '+ACH.length+' desbloqueadas</span><span>'+Math.round(unlocked/ACH.length*100)+'%</span></div>'+
     
       ACH.map(function(a){var on=a[3](b);return '<div class="ac'+(on?'':' lock')+'">'+ico.trophy+'<div><b>'+a[1]+'</b><span>'+a[2]+'</span></div></div>'}).join('')+
-    '</div></div></div></div></div>';
-  
+    '</div></div></div></div>';
+    
     $('main').innerHTML=h;
-}
+  }
 
     function renderMain(){
       
@@ -340,7 +347,7 @@ function tile(b){
         if(b)renderDetail(b);else renderHome();
       
     }
-  
+    
     function renderAll(){
       
         var store=ui.tab==='store';
@@ -356,15 +363,15 @@ function tile(b){
     }
 
 
-    function T(id,title,author,year,genre,pages,hue,pat,font,desc){return {id:id,title:title,author:author,year:year,genre:genre,pages:pages,hue:hue,pattern:pat,font:font,desc:desc}}
+    function T(id,title,author,year,genre,pages,hue,pat,font,desc){return {id:id,title:title,author:author,year:year,genre:genre,pages:pages,hue:hue,pattern:pat,font:font,desc:desc,downloads:{pdf:'',epub:''}}}
 
   var STORE=[
-  
-      T('t1','O Pequeno Príncipe','Antoine de Saint-Exupéry',1943,'Fábula',96,48,0,0,'Um piloto perdido no deserto conhece um menino vindo de outro planeta, que conta suas viagens e o que aprendeu sobre amizade e sobre os adultos.'),
     
-      T('t2','O Senhor dos Anéis: A Sociedade do Anel','J. R. R. Tolkien',1954,'Fantasia',576,95,2,0,'Frodo herda um anel perigoso e parte com companheiros numa jornada para destruí-lo antes que o inimigo o recupere.'),
+      T('t1','O Pequeno Príncipe','Antoine de Saint-Exupéry',1943,'Fábula',96,48,0,0,'Um piloto perdido no deserto conhece um menino vindo de outro planeta, que conta suas viagens e o que aprende sobre amor, amizade e responsabilidade.'),
     
-      T('t3','Admirável Mundo Novo','Aldous Huxley',1932,'Distopia',312,200,3,1,'Uma sociedade estável e feliz graças ao condicionamento e às drogas leves mostra o preço de ter tudo resolvido de antemão.'),
+      T('t2','O Senhor dos Anéis: A Sociedade do Anel','J. R. R. Tolkien',1954,'Fantasia',576,95,2,0,'Frodo herda um anel perigoso e parte com companheiros numa jornada para destruí-lo antes que se espalhe pela Terra-média.'),
+    
+      T('t3','Admirável Mundo Novo','Aldous Huxley',1932,'Distopia',312,200,3,1,'Uma sociedade estável e feliz graças ao condicionamento e às drogas leves mostra o preço de ter tudo resolvido.'),
     
       T('t4','Frankenstein','Mary Shelley',1818,'Terror',280,165,1,0,'Um cientista dá vida a uma criatura feita de partes de corpos e foge da responsabilidade pelo que criou.'),
     
@@ -372,9 +379,9 @@ function tile(b){
     
       T('t6','Crime e Castigo','Fiódor Dostoiévski',1866,'Clássico',576,235,1,1,'Um estudante pobre comete um assassinato em São Petersburgo e passa a ser consumido pela culpa e pelo medo de ser descoberto.'),
     
-      T('t7','A Revolução dos Bichos','George Orwell',1945,'Distopia',152,28,0,2,'Os animais de uma fazenda expulsam o dono e tentam criar uma sociedade igualitária, até que alguns se tornam mais iguais que outros.'),
+      T('t7','A Revolução dos Bichos','George Orwell',1945,'Distopia',152,28,0,2,'Os animais de uma fazenda expulsam o dono e tentam criar uma sociedade igualitária, até que alguns se tornam cada vez mais parecidos com os humanos.'),
     
-      T('t8','Ensaio sobre a Cegueira','José Saramago',1995,'Romance',312,320,3,0,'Uma epidemia de cegueira branca atinge uma cidade inteira e testa os limites da convivência entre as pessoas isoladas.'),
+      T('t8','Ensaio sobre a Cegueira','José Saramago',1995,'Romance',312,320,3,0,'Uma epidemia de cegueira branca atinge uma cidade inteira e testa os limites da convivência entre as pessoas isoladas em um mundo sem visão.'),
     
       T('t9','Vidas Secas','Graciliano Ramos',1938,'Romance',176,38,2,1,'Uma família de retirantes atravessa o sertão em busca de sobrevivência, com poucas palavras e muita dureza.'),
     
@@ -382,22 +389,22 @@ function tile(b){
     
       T('t11','O Conto da Aia','Margaret Atwood',1985,'Distopia',368,8,3,2,'Em um regime que controla os corpos das mulheres, uma aia relembra a vida anterior e tenta sobreviver ao presente.'),
     
-      T('t12','Fundação','Isaac Asimov',1951,'Ficção científica',256,235,0,1,'Um matemático prevê a queda de um império galáctico e cria uma fundação para encurtar os séculos de caos que virão.'),
+      T('t12','Fundação','Isaac Asimov',1951,'Ficção científica',256,235,0,1,'Um matemático prevê a queda de um império galáctico e cria uma fundação para encurtar os séculos de caos e barbárie.'),
     
-      T('t13','O Morro dos Ventos Uivantes','Emily Brontë',1847,'Romance',400,275,2,0,'Uma paixão intensa e destrutiva entre Heathcliff e Catherine atravessa duas gerações numa casa isolada na charneca inglesa.'),
+      T('t13','O Morro dos Ventos Uivantes','Emily Brontë',1847,'Romance',400,275,2,0,'Uma paixão intensa e destrutiva entre Heathcliff e Catherine atravessa duas gerações numa casa isolada no topo das colinas.'),
     
-      T('t14','Vinte Mil Léguas Submarinas','Júlio Verne',1870,'Ficção científica',400,200,1,2,'Um professor é levado a bordo do submarino Nautilus, comandado pelo enigmático capitão Nemo, numa volta pelos oceanos.'),
+      T('t14','Vinte Mil Léguas Submarinas','Júlio Verne',1870,'Ficção científica',400,200,1,2,'Um professor é levado a bordo do submarino Nautilus, comandado pelo enigmático capitão Nemo, em uma expedição sob as águas do mundo.'),
     
       T('t15','A Metamorfose','Franz Kafka',1915,'Clássico',96,95,0,2,'Gregor Samsa acorda transformado em inseto e vê a família reagir ao que isso muda na rotina da casa.'),
     
-      T('t16','Perto do Coração Selvagem','Clarice Lispector',1943,'Romance',200,320,1,0,'Joana, da infância à vida adulta, busca liberdade e um jeito próprio de sentir, em fragmentos de memória e pensamento.'),
+      T('t16','Perto do Coração Selvagem','Clarice Lispector',1943,'Romance',200,320,1,0,'Joana, da infância à vida adulta, busca liberdade e um jeito próprio de sentir, em fragmentos de memória e intensidade.'),
     
       T('t17','Hábitos Atômicos','James Clear',2018,'Não ficção',320,165,3,2,'Um método prático para criar bons hábitos e abandonar os ruins por meio de mudanças pequenas e constantes.'),
     
       T('t18','O Alquimista','Paulo Coelho',1988,'Romance',208,48,0,2,'Um pastor andaluz atravessa o deserto atrás de um tesouro e descobre o que realmente procurava.')
   ];
   
-var FEATURED=['t7','t2','t3','t5'];
+  var FEATURED=['t7','t2','t3','t5'];
 
   function sget(id){for(var i=0;i<STORE.length;i++)if(STORE[i].id===id)return STORE[i];return null}
 
@@ -406,18 +413,18 @@ var FEATURED=['t7','t2','t3','t5'];
   function wished(id){return wish.indexOf(id)>-1}
 
   function addFromStore(s){
-  
+
       if(ownedBook(s.id))return;
     
         books.unshift({id:'u'+Date.now().toString(36)+Math.random().toString(36).slice(2,5),storeId:s.id,title:s.title,author:s.author,year:s.year,genre:s.genre,pages:s.pages,
       
-                   read:0,status:'want',hue:s.hue,pattern:s.pattern,font:s.font,desc:s.desc,minutes:0,fav:false,rec:null,note:'',last:null,added:Date.now()});
+                   read:0,status:'want',hue:s.hue,pattern:s.pattern,font:s.font,desc:s.desc,minutes:0,fav:false,rec:null,note:'',last:null,added:Date.now(),downloads:{pdf:'',epub:''}});
     
         wish=wish.filter(function(x){return x!==s.id});
     
           persist(); saveWish();
-}
-  
+ }
+
     function storeItems(){
       
       var q=ui.sq.trim().toLowerCase();
@@ -448,8 +455,8 @@ var FEATURED=['t7','t2','t3','t5'];
     
       var own=ownedBook(s.id);
       
-      return (own?'<button class="btn blue big" type="button" data-act="sgo" data-v="'+s.id+'">Ver na biblioteca</button>':'<button class="btn green big" type="button" data-act="sadd" data-v="'+s.id+'">+ Adicionar à biblioteca</button>')+
-      
+      return (own?'<button class="btn blue big" type="button" data-act="sgo" data-v="'+s.id+'">Ver na biblioteca</button>':'<button class="btn green big" type="button" data-act="sadd" data-v="'+s.id+'">Adicionar</button>')+
+        
         (own?'':'<button class="btn ghost big" type="button" data-act="swish" data-v="'+s.id+'" aria-pressed="'+wished(s.id)+'">'+ico.heart+' '+(wished(s.id)?'Na lista de desejos':'Lista de desejos')+'</button>');
   }
 
@@ -464,15 +471,15 @@ var FEATURED=['t7','t2','t3','t5'];
 
   
   function renderStore(){
-  
+
       if(ui.ssel){renderStoreDetail();return}
-  
+
         var f=sget(FEATURED[ui.sfeat%FEATURED.length]);
-  
+
         var genres=[]; STORE.forEach(function(s){if(genres.indexOf(s.genre)<0)genres.push(s.genre)}); genres.sort(function(a,b){return a.localeCompare(b,'pt-BR')});
-  
+
         var chips=[['all','Todos'],['wish','Lista de desejos ('+wish.length+')']].concat(genres.map(function(g){return [g,g]}));
-  
+
         var h='<div style="--h:'+f.hue+'"><section class="hero">'+cover(f)+'<div class="info">'+
     
             '<span class="kicker">Destaque da loja</span><h1>'+esc(f.title)+'</h1><div class="by">'+esc(f.author)+' · '+f.year+'</div>'+
@@ -487,42 +494,42 @@ var FEATURED=['t7','t2','t3','t5'];
     
             '<button type="button" data-act="sfeat" data-v="1" aria-label="Próximo destaque">'+ico.next+'</button></div></section>'+
     
-            '<div class="pad"><section><div class="sec-h"><h2><b>Explorar</b> <span id="scount"></span></h2><div class="ssearch"><input id="sq" type="search" placeholder="Buscar na loja" aria-label="Buscar na loja" value="'+esc(ui.sq)+'" autocomplete="off"></div></div>'+
+            '<div class="pad"><section><div class="sec-h"><h2><b>Explorar</b> <span id="scount"></span></h2><div class="ssearch"><input id="sq" type="search" placeholder="Buscar na loja" aria-label="Buscar na loja" autocomplete="off"></div></div>'+
     
-            '<div class="chips" style="margin-bottom:16px">'+chips.map(function(c){return '<button class="chip" type="button" data-act="sgenre" data-v="'+esc(c[0])+'" aria-pressed="'+(ui.sgenre===c[0])+'">'+esc(c[1])+'</button>'}).join('')+'</div>'+
+            '<div class="chips" style="margin-bottom:16px">'+chips.map(function(c){return '<button class="chip" type="button" data-act="sgenre" data-v="'+esc(c[0])+'" aria-pressed="'+(ui.sgenre==c[0])+'">'+esc(c[1])+'</button>'}).join('')+'</div>'+
     
             '<div class="grid" id="sgrid" style="--tile:150px"></div><p class="note-ex" style="margin-top:20px">Catálogo de exemplo. Os livros adicionados passam a fazer parte da sua biblioteca.</p></section></div></div>';
   
     $('main').innerHTML=h; renderStoreGrid();
-}
+ }
 
   function renderStoreDetail(){
-  
+
       var s=sget(ui.ssel); if(!s){ui.ssel=null;renderStore();return}
-  
+
       var same=STORE.filter(function(x){return x.genre===s.genre&&x.id!==s.id});
-  
+
       var more=same.concat(STORE.filter(function(x){return x.genre!==s.genre&&x.id!==s.id})).slice(0,4);
-  
+
       var moreTitle=same.length?'Mais em '+s.genre:'Você também pode gostar';
-  
+
       var h='<div style="--h:'+s.hue+'"><section class="hero">'+cover(s)+'<div class="info"><button class="back" type="button" data-act="sback">'+ico.back+' Loja</button>'+
     
           '<h1>'+esc(s.title)+'</h1><div class="by">'+esc(s.author)+' · '+s.year+'</div><div class="tags"><span class="tag">'+esc(s.genre)+'</span><span class="tag">'+num(s.pages)+' páginas</span></div>'+
     
-          '<div class="btns">'+addBtns(s)+'</div></div></section>'+
+          '<p class="desc">'+esc(s.desc)+'</p><div class="btns">'+addBtns(s)+'</div></div></section>'+
     
           '<div class="cols2"><div><div class="box"><h3>Sobre este livro</h3><p>'+esc(s.desc)+'</p></div>'+
     
           '<div class="box"><h3>Detalhes</h3><dl class="kv"><dt>Autor</dt><dd>'+esc(s.author)+'</dd><dt>Ano</dt><dd>'+s.year+'</dd><dt>Gênero</dt><dd>'+esc(s.genre)+'</dd><dt>Páginas</dt><dd>'+num(s.pages)+'</dd></dl></div></div>'+
     
           '<div><div class="box"><h3>'+esc(moreTitle)+'</h3><div class="mini-grid">'+more.map(scard).join('')+'</div></div></div></div></div>';
- 
+  
     $('main').innerHTML=h;
-}
+ }
 
       function mutate(fn){fn();persist();renderAll()}
-  
+    
   function pushStatus(b,st){
       
       b.status=st;
@@ -600,13 +607,26 @@ var FEATURED=['t7','t2','t3','t5'];
   
   document.addEventListener('click',function(e){
     
-    var t=e.target.closest('[data-act]'); if(!t||t.tagName==='SELECT')return;
+    var t=e.target.closest('[data-role="download-tab"]');
+    if(t){
+      var targetId=t.getAttribute('data-target');
+      var tabs=document.querySelectorAll('.download-tab');
+      tabs.forEach(function(tab){
+        tab.setAttribute('aria-current', tab===t ? 'true' : 'false');
+      });
+      document.querySelectorAll('.download-panel').forEach(function(panel){
+        panel.hidden = panel.id !== targetId;
+      });
+      return;
+    }
+
+    var action=e.target.closest('[data-act]'); if(!action||action.tagName==='SELECT')return;
     
-    act(t.getAttribute('data-act'),t.getAttribute('data-v'),t);
+    act(action.getAttribute('data-act'),action.getAttribute('data-v'),action);
   
   });
-  
-document.addEventListener('change',function(e){
+
+ document.addEventListener('change',function(e){
   
   var t=e.target;
   
@@ -616,9 +636,9 @@ document.addEventListener('change',function(e){
   
   else if(t.id==='sort'){ui.sort=t.value; saveUI(); renderList(); renderMain();}
 
-});
+ });
   
-document.addEventListener('input',function(e){
+ document.addEventListener('input',function(e){
   
   var t=e.target;
   
@@ -632,8 +652,8 @@ document.addEventListener('input',function(e){
   
   else if($('form').contains(t)||t.name==='hue'){updatePreview();}
 
-});
-  
+ });
+    
     document.addEventListener('keydown',function(e){if(e.key==='Escape'&&!$('ov').hidden)$('ov').hidden=true});
     
         $('ov').addEventListener('mousedown',function(e){if(e.target===$('ov'))$('ov').hidden=true});
@@ -641,7 +661,7 @@ document.addEventListener('input',function(e){
       function saveUI(){try{localStorage.setItem(LSUI,JSON.stringify({sort:ui.sort,tile:ui.tile}))}catch(e){}}
 
         $('sw').innerHTML=HUES.map(function(h,i){
-  
+   
           return '<label style="--h:'+h+'"><input type="radio" name="hue" value="'+h+'" aria-label="Cor '+(i+1)+'"'+(i===5?' checked':'')+'></label>';
 
         }).join('');
@@ -659,9 +679,9 @@ function formBook(){
     hue:hue?+hue.value:200, pattern:+$('f-pat').value, font:+$('f-font').value
   
   };
-}
-  
-function updatePreview(){$('pv').innerHTML=cover(formBook())}
+ }
+   
+ function updatePreview(){$('pv').innerHTML=cover(formBook())}
   
   function openAdd(){
     
@@ -674,7 +694,7 @@ function updatePreview(){$('pv').innerHTML=cover(formBook())}
       $('err').textContent=''; updatePreview(); $('ov').hidden=false;
       
       setTimeout(function(){$('f-title').focus()},30);
-}
+  }
 
   function saveAdd(){
     
@@ -692,12 +712,12 @@ function updatePreview(){$('pv').innerHTML=cover(formBook())}
     
            read:st==='done'?pages:0,status:st,hue:f.hue,pattern:f.pattern,font:f.font,desc:$('f-desc').value.trim(),minutes:0,fav:false,rec:null,note:'',
       
-           last:st==='done'?Date.now():null,added:Date.now()};
+           last:st==='done'?Date.now():null,added:Date.now(),downloads:{pdf:'',epub:''}};
     
     books.unshift(b); ui.sel=b.id; ui.session=false; ui.confirmDel=false;
     
         $('ov').hidden=true; persist(); renderAll(); $('main').scrollTop=0; window.scrollTo(0,0);
-}
+ }
 
   
           renderAll();
