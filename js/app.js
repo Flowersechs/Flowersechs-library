@@ -635,6 +635,17 @@ function tile(b){
   else if(t.id==='note'){var b2=find(ui.sel); if(b2){b2.note=t.value; persist(); renderCols(); renderMain();}}
   
   else if(t.id==='sort'){ui.sort=t.value; saveUI(); renderList(); renderMain();}
+  else if(t.id==='f-file'){
+    var file = t.files && t.files[0] ? t.files[0] : null;
+    if(file){
+      var ext = file.name.split('.').pop().toLowerCase();
+      if(ext !== 'pdf' && ext !== 'epub'){
+        $('err').textContent = 'Escolha um arquivo PDF ou EPUB.';
+      } else {
+        $('err').textContent = '';
+      }
+    }
+  }
 
  });
   
@@ -688,6 +699,7 @@ function formBook(){
       ['f-title','f-author','f-desc'].forEach(function(id){$(id).value=''});
     
       $('f-pages').value=300; $('f-genre').selectedIndex=0; $('f-status').value='want'; $('f-font').value='0'; $('f-pat').value='0';
+      $('f-file').value='';
     
       var r=document.querySelectorAll('input[name=hue]'); if(r[5])r[5].checked=true;
     
@@ -705,6 +717,20 @@ function formBook(){
     var pages=Math.max(1,Math.min(5000,parseInt($('f-pages').value,10)||0));
     
     if(!pages){$('err').textContent='Informe o número de páginas.';return}
+
+    var fileInput = $('f-file');
+    var file = fileInput && fileInput.files && fileInput.files[0] ? fileInput.files[0] : null;
+    var download = {pdf:'', epub:''};
+    if(file){
+      var ext = (file.name || '').split('.').pop().toLowerCase();
+      if(ext !== 'pdf' && ext !== 'epub'){
+        $('err').textContent='Escolha um arquivo PDF ou EPUB.';
+        return;
+      }
+      var blobUrl = URL.createObjectURL(file);
+      if(ext === 'pdf') download.pdf = blobUrl;
+      if(ext === 'epub') download.epub = blobUrl;
+    }
     
     var f=formBook(), st=$('f-status').value;
     
@@ -712,7 +738,7 @@ function formBook(){
     
            read:st==='done'?pages:0,status:st,hue:f.hue,pattern:f.pattern,font:f.font,desc:$('f-desc').value.trim(),minutes:0,fav:false,rec:null,note:'',
       
-           last:st==='done'?Date.now():null,added:Date.now(),downloads:{pdf:'',epub:''}};
+           last:st==='done'?Date.now():null,added:Date.now(),downloads:download};
     
     books.unshift(b); ui.sel=b.id; ui.session=false; ui.confirmDel=false;
     
